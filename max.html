@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Min & Max Values</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+       body {
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #800000;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            line-height: 1.2;
+        }
+
+        nav {
+            background: #990000;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            z-index: 999;
+            height: 60px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin: 2px;
+        }
+
+        nav a:hover {
+            background: #b30000;
+            box-shadow: inset 0 -3px 0 #800000;
+        }
+
+        nav a.active {
+            background: #b30000;
+            pointer-events: none;
+        }
+
+        main {
+            padding: 160px 20px 30px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .topic-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .topic-title {
+            font-family: 'Great Vibes', cursive;
+            color: #800000;
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .example-box {
+            background: #fafafa;
+            border-left: 4px solid #b30000;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .example-box h3 {
+            font-family: 'Great Vibes', cursive;
+            color: #800000;
+            margin-top: 0;
+        }
+
+        .deriv {
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .frac {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .frac .top {
+            display: block;
+            border-bottom: 1px solid #000;
+            padding: 0 2px;
+        }
+
+        .frac .bottom {
+            display: block;
+            padding: 0 2px;
+        }
+
+        .steps p {
+            margin: 5px 0;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        strong {
+            color: #800000;
+        }
+
+        /* Quiz Styling */
+        #quiz-constant {
+            background: #e6c8c8;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .quiz-list {
+            margin: 15px 0;
+        }
+
+        .quiz-list li {
+            margin-bottom: 15px;
+        }
+
+        .quiz-list ul {
+            list-style-type: lower-alpha;
+            margin-left: 20px;
+        }
+
+        .quiz-list input {
+            margin-right: 5px;
+        }
+
+        #quiz-result {
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #800000;
+            display: none;
+        }
+
+        #try-again {
+            background: #800000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #try-again:hover {
+            background: #b30000;
+        }
+
+        #submit-btn {
+            background: #800000;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s ease;
+        }
+
+        #submit-btn:hover {
+            background: #b30000;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+                padding: 10px;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+                padding: 10px 12px;
+            }
+
+            .topic-title {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            main {
+                padding: 140px 10px 20px 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+                padding: 8px 10px;
+            }
+
+            .topic-title {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 120px 10px 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Calculus - Derivatives, Chain Rule & Minimum/Maximum Values</h1>
+</header>
+
+<nav>
+    
+    <a href="index.html">Home</a>
+    <a href="constant.html">Constant Rule</a>
+    <a href="power.html">Power Rule</a>
+    <a href="product.html">Product Rule</a>
+    <a href="quotient.html">Quotient Rule</a>
+    <a href="chain.html">Chain Rule</a>
+    <a href="max.html" class="active">Min & Max Values</a>
+</nav>
+
+<main>
+    <!-- MIN / MAX VALUES -->
+    <section class="topic-section" id="extrema">
+        <h2 class="topic-title">Minimum & Maximum Values</h2>
+        <p>The derivative helps find critical points, and the second derivative tells whether it is a maximum or minimum.</p>
+        <p>To find local minima or maxima of a function:</p>
+        <ol class="steps">
+            <li>Compute derivative f'(x)</li>
+            <li>Set f'(x) = 0 → find critical points</li>
+            <li>Compute f''(x): if positive → minimum, if negative → maximum</li>
+        </ol>
+
+        <div class="example-box">
+            <h3>Example 1:</h3>
+            <p><strong>f(x) = x³ − 3x</strong></p>
+            <div class="steps">
+                <p><strong>Step 1:</strong> Find the first derivative:</p>
+                <p>f'(x) = 3x² − 3</p>
+                <p><strong>Step 2:</strong> Set the derivative equal to 0 to find critical points:</p>
+                <p>3x² − 3 = 0 → x² = 1 → x = 1 or x = −1</p>
+                <p><strong>Step 3 (Second Derivative Test):</strong> Determine concavity:</p>
+                <p>f''(x) = 6x</p>
+                <ul>
+                    <li>At x = 1 → f''(1) = 6 &gt; 0 → <strong>minimum</strong></li>
+                    <li>At x = −1 → f''(−1) = −6 &lt; 0 → <strong>maximum</strong></li>
+                </ul>
+                <p><strong>Step 4:</strong> Substitute critical points into the original function to find the values:</p>
+                <ul>
+                    <li>f(1) = (1)³ − 3(1) = 1 − 3 = −2 → minimum</li>
+                    <li>f(−1) = (−1)³ − 3(−1) = −1 + 3 = 2 → maximum</li>
+                </ul>
+                <p><strong>Final Answer:</strong> Maximum at x = −1; f(−1) = 2; Minimum at x = 1; f(1) = −2</p>
+            </div>
+            <p><strong>WHY:</strong> The second derivative test tells us concavity: positive → concave up → minimum, negative → concave down → maximum. Substituting the critical points into f(x) gives the actual maximum and minimum values.</p>
+        </div>
+
+        <div class="example-box">
+            <h3>Example 2:</h3>
+            <p><strong>f(x) = x² − 4x + 3</strong></p>
+            <div class="steps">
+                <p><strong>Step 1:</strong> Find the first derivative:</p>
+                <p>f'(x) = 2x − 4</p>
+                <p><strong>Step 2:</strong> Set the derivative equal to 0 to find critical points:</p>
+                <p>2x − 4 = 0 → x = 2</p>
+                <p><strong>Step 3 (Second Derivative Test):</strong> Determine concavity:</p>
+                <p>f''(x) = 2 → f''(2) = 2 &gt; 0 → <strong>minimum</strong></p>
+                <p><strong>Step 4:</strong> Substitute the critical point into the original function to find the value:</p>
+                <p>f(2) = (2)² − 4(2) + 3 = 4 − 8 + 3 = −1</p>
+                <p><strong>Final Answer:</strong> Minimum at x = 2; f(2) = −1</p>
+            </div>
+            <p><strong>WHY:</strong> The second derivative test shows the graph is concave up at x = 2, indicating a minimum. Substituting x = 2 into f(x) gives the minimum value f(2) = −1.</p>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="topic-section" id="quiz-max">
+        <h2 class="topic-title">Quiz - Min & Max Values</h2>
+        <form id="quizForm" class="quiz-list">
+            <ol>
+                <li>
+                    <p>If f(x) = x², where is the minimum?</p>
+                    <ul>
+                        <li><input type="radio" name="q1" value="a"> x = 0</li>
+                        <li><input type="radio" name="q1" value="b"> x = 1</li>
+                        <li><input type="radio" name="q1" value="c"> x = -1</li>
+                        <li><input type="radio" name="q1" value="d"> No minimum</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>If f(x) = -x² + 4, where is the maximum?</p>
+                    <ul>
+                        <li><input type="radio" name="q2" value="a"> x = 0</li>
+                        <li><input type="radio" name="q2" value="b"> x = 2</li>
+                        <li><input type="radio" name="q2" value="c"> x = -2</li>
+                        <li><input type="radio" name="q2" value="d"> No maximum</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>For f(x) = x³, what type of critical point is at x = 0?</p>
+                    <ul>
+                        <li><input type="radio" name="q3" value="a"> Maximum</li>
+                        <li><input type="radio" name="q3" value="b"> Minimum</li>
+                        <li><input type="radio" name="q3" value="c"> Neither</li>
+                        <li><input type="radio" name="q3" value="d"> Both</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>f(x) = x⁴ - 4x² → f''(0) = ?</p>
+                    <ul>
+                        <li><input type="radio" name="q4" value="a"> 0</li>
+                        <li><input type="radio" name="q4" value="b"> 8</li>
+                        <li><input type="radio" name="q4" value="c"> -8</li>
+                        <li><input type="radio" name="q4" value="d"> 4</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>For f(x) = x² + 2x, find the minimum point.</p>
+                    <ul>
+                        <li><input type="radio" name="q5" value="a"> (-1, -1)</li>
+                        <li><input type="radio" name="q5" value="b"> (1, 1)</li>
+                        <li><input type="radio" name="q5" value="c"> (-1, 1)</li>
+                        <li><input type="radio" name="q5" value="d"> (0, 0)</li>
+                    </ul>
+                </li>
+            </ol>
+            <button type="button" id="submit-btn" onclick="checkQuiz()">Submit</button>
+        </form>
+
+        <div id="quiz-result" style="display:none;"></div>
+        <button id="try-again" style="display:none;" onclick="resetQuiz()">Try Again</button>
+    </section>
+</main>
+
+<script>
+    const answers = {
+        q1: 'a',
+        q2: 'a',
+        q3: 'c',
+        q4: 'a',
+        q5: 'a'
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        let total = Object.keys(answers).length;
+        let resultText = '<h3>Results:</h3><ol>';
+
+        for (let i = 1; i <= total; i++) {
+            const qName = 'q' + i;
+            const userAnswer = document.querySelector('input[name="' + qName + '"]:checked');
+            if (userAnswer) {
+                if (userAnswer.value === answers[qName]) {
+                    score++;
+                    resultText += `<li>Question ${i}: Correct ✅</li>`;
+                } else {
+                    resultText += `<li>Question ${i}: Wrong ❌ (Correct: ${answers[qName].toUpperCase()})</li>`;
+                }
+            } else {
+                resultText += `<li>Question ${i}: No answer ❌ (Correct: ${answers[qName].toUpperCase()})</li>`;
+            }
+        }
+
+        resultText += `</ol><p><strong>Score: ${score}/${total}</strong></p>`;
+        document.getElementById('quiz-result').innerHTML = resultText;
+        document.getElementById('quiz-result').style.display = 'block';
+        document.getElementById('try-again').style.display = 'inline-block';
+    }
+
+    function resetQuiz() {
+        document.getElementById('quizForm').reset();
+        document.getElementById('quiz-result').style.display = 'none';
+        document.getElementById('try-again').style.display = 'none';
+        window.scrollTo({ top: document.getElementById('quiz-max').offsetTop - 20, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

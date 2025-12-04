@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Derivatives Overview</title>
+    <!-- Elegant Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+         main {
+            padding: 30px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            color: #800000;
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+                padding: 15px 10px;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+                padding: 12px 15px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            main {
+                padding: 20px 10px;
+            }
+        }
+       
+
+       
+
+        body {
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #800000;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            line-height: 1.2;
+        }
+
+        nav {
+            background: #990000;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            z-index: 999;
+            height: 60px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin: 2px;
+        }
+
+        nav a:hover {
+            background: #b30000;
+            box-shadow: inset 0 -3px 0 #800000;
+        }
+
+        nav a.active {
+            background: #b30000;
+            pointer-events: none;
+        }
+
+        main {
+            padding: 160px 20px 30px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .topic-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .topic-title {
+            font-family: 'Great Vibes', cursive;
+            color: #800000;
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .example-box {
+            background: #fafafa;
+            border-left: 4px solid #b30000;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .example-box h3 {
+            font-family: 'Great Vibes', cursive;
+            color: #800000;
+            margin-top: 0;
+        }
+
+        .deriv {
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .frac {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .frac .top {
+            display: block;
+            border-bottom: 1px solid #000;
+            padding: 0 2px;
+        }
+
+        .frac .bottom {
+            display: block;
+            padding: 0 2px;
+        }
+
+        .steps p {
+            margin: 5px 0;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        strong {
+            color: #800000;
+        }
+
+        /* Quiz Styling */
+        #quiz-constant {
+            background: #e6c8c8;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .quiz-list {
+            margin: 15px 0;
+        }
+
+        .quiz-list li {
+            margin-bottom: 15px;
+        }
+
+        .quiz-list ul {
+            list-style-type: lower-alpha;
+            margin-left: 20px;
+        }
+
+        .quiz-list input {
+            margin-right: 5px;
+        }
+
+        #quiz-result {
+            background: #ffe6e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #800000;
+            display: none;
+        }
+
+        #try-again {
+            background: #800000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #try-again:hover {
+            background: #b30000;
+        }
+
+        #submit-btn {
+            background: #800000;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s ease;
+        }
+
+        #submit-btn:hover {
+            background: #b30000;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+                padding: 10px;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+                padding: 10px 12px;
+            }
+
+            .topic-title {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            main {
+                padding: 140px 10px 20px 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+                padding: 8px 10px;
+            }
+
+            .topic-title {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 120px 10px 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculus - Derivatives, Chain Rule & Minimum/Maximum Values</h1>
+    </header>
+
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="constant.html">Constant Rule</a>
+        <a href="power.html">Power Rule</a>
+        <a href="product.html">Product Rule</a>
+        <a href="quotient.html">Quotient Rule</a>
+        <a href="chain.html">Chain Rule</a>
+        <a href="max.html">Min & Max Values</a>
+    </nav>
+
+    <main>
+        <!-- Derivatives -->
+        <div class="card">
+            <h2>Derivatives</h2>
+            <p>A derivative is a function that gives the rate of change or slope of a function at any value x.</p>
+        </div>
+
+        <!-- Constant Rule -->
+        <div class="card">
+            <h2>Constant Rule</h2>
+            <p>The derivative of a constant is always <strong>0</strong>.</p>
+        </div>
+
+        <!-- Power Rule -->
+        <div class="card">
+            <h2>Power Rule</h2>
+            <p>For <strong>f(x) = xⁿ</strong>, the derivative is given by:</p>
+            <p>d/dx [ xⁿ ] = n·xⁿ⁻¹</p>
+        </div>
+
+        <!-- Product Rule -->
+        <div class="card">
+            <h2>Product Rule</h2>
+            <p>If two functions are multiplied, f(x) = u(x) · v(x), the derivative is:</p>
+            <p>d/dx [ u·v ] = u'·v + u·v'</p>
+        </div>
+
+        <!-- Quotient Rule -->
+        <div class="card">
+            <h2>Quotient Rule</h2>
+            <p>For functions u(x) and v(x): <strong>(u/v)' = (u'·v − u·v') / v²</strong></p>
+        </div>
+    </main>
+</body>
+</html>
